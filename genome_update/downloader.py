@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import urllib
 import os
 from multiprocessing import Pool

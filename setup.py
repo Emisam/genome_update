@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 from os import path
 
@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
 	name='genome_update',
-	version = '0.1.3.7',
+	version = '0.1.4.4',
 	description = 'A script for updating a local directory with genomes, from NCBI assembly files',
 	long_description = long_description,
 	url='https://github.com/Emisam/genome_update.git',

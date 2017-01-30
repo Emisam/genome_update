@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from genome_update import compare_isolates as ci
 import os.path
 class dictonary:
@@ -32,7 +33,7 @@ class dictonary:
 		assembly = 'assembly_accession'
 		dicto[assembly] = isolate.name
 		for i, j in enumerate(isolate):
-			dicto[indeces[i]] = j
+			dicto[indeces[i]] = str(j)
 		for i in newColumns:
 			dicto[i] = ""
 		return dicto
