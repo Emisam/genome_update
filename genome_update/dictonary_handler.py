@@ -1,4 +1,4 @@
-import compare_isolates as ci
+from genome_update import compare_isolates as ci
 import os.path
 class dictonary:
 	def __init__(self, handler, outputfile, inputfile = None):

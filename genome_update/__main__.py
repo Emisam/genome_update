@@ -1,9 +1,9 @@
 import argparse
 import os
-import isolate_finder as iso
-import yaml_handler as yh
-import dictonary_handler as dh
-import downloader as dw
+from genome_update import isolate_finder as iso
+from genome_update import yaml_handler as yh
+from genome_update import dictonary_handler as dh
+from genome_update import downloader as dw
 def main():
 
 

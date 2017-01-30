@@ -1,5 +1,5 @@
 import pandas as pd
-import compare_isolates as ci
+from genome_update import compare_isolates as ci
 
 class isolate_finder:
 
