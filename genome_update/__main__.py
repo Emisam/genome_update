@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import argparse
 import os
+
+import genome_update
 from genome_update import isolate_finder as iso
 from genome_update import yaml_handler as yh
 from genome_update import dictonary_handler as dh
 from genome_update import downloader as dw
 def main():
-
-
 	SUPPORTED_DOMAINS = ['archaea', 'bacteria', 'fungi', 'invertebrate', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', 'viral']
 	parser = argparse.ArgumentParser()
 
@@ -55,13 +55,13 @@ def main():
 						dest = 'update', 
 						help = 'Use to only update local yaml file', 
 						action = 'store_true')
-
+	parser.add_argument('-V', '--version', action ='version', version=genome_update.__version__, help='print version information')
 
 	args = parser.parse_args()
 
 
 	NCBI = 'ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/' + args.domain + '/assembly_summary.txt'
-	yaml = yh.yaml_handler()
+	yaml = yaml_handler()
 
 	if not os.path.exists(args.output):
 		os.makedirs(args.output)
@@ -84,6 +84,10 @@ def main():
 		download(yaml, args.name, args.name, args.output, args.parallel)
 	else:
 		print('Input arguments was invalid, try -h for help')
+
+
+
+
 def download(yaml, inputfile, outputfile, directory, parallel):
 	dwon = dw.downloader(yaml.read(inputfile))
 	job = dwon.get_download_jobs(directory)
