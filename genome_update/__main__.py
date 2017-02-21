@@ -7,6 +7,7 @@ from genome_update import isolate_finder as iso
 from genome_update import yaml_handler as yh
 from genome_update import dictonary_handler as dh
 from genome_update import downloader as dw
+from genome_update import sequence_statistics 
 def main():
 	SUPPORTED_DOMAINS = ['archaea', 'bacteria', 'fungi', 'invertebrate', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', 'viral']
 	parser = argparse.ArgumentParser()
@@ -61,11 +62,13 @@ def main():
 
 
 	NCBI = 'ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/' + args.domain + '/assembly_summary.txt'
-	yaml = yaml_handler()
+	yaml = yh.yaml_handler()
 
+	#create directory if it does not exists
 	if not os.path.exists(args.output):
 		os.makedirs(args.output)
 
+	#Check which arguments that were given
 	if args.download and args.update:
 		print('Both --download and --update-yaml cannot be supplied')
 	elif args.download:
@@ -87,21 +90,25 @@ def main():
 
 
 
-
 def download(yaml, inputfile, outputfile, directory, parallel):
 	dwon = dw.downloader(yaml.read(inputfile))
 	job = dwon.get_download_jobs(directory)
 	if len(job) != 0:
 		newdict = dwon.download_jobs(parallel, job)
 		yaml.write(outputfile, newdict)
+		sequence_statistics.calculate_statistics(yaml, outputfile)
 	else:
 		print('Could not find any jobs, check if genus and species-taxid is correctly entered')
+
+
 
 def update_yaml(yaml, url, genus, species_taxid, taxid, outputfile, inputfile):
 	dl = iso.isolate_finder(url)
 	isolates = dl.select_genus(genus, species_taxid, taxid)
 	dictonary = dh.dictonary(yaml, outputfile, inputfile)
 	dictonary.update_dictonary(isolates, genus)
+
+
 
 if __name__ == '__main__':
 	main()

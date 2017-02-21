@@ -20,7 +20,7 @@ class downloader:
 						ftp_path = self.genomes[species][strain]['ftp_path']
 						ftp_path = '/'.join([ftp_path , ftp_path[ftp_path.find(assembly):]])
 						ftp_path = ftp_path +'_'+ 'genomic' +'.'+ self.file_formats[j]
-						file_name = os.path.join(outfolder, strain.replace('/','_') + "." + self.file_formats[j])
+						file_name = os.path.join(outfolder, self.clean_name(strain) + "." + self.file_formats[j])
 						jobs.append([ftp_path, file_name, species, strain, i])
 		return jobs
 
@@ -28,14 +28,19 @@ class downloader:
 		try:
 			urllib.request.urlretrieve(job[0], job[1])
 			print('Download of %s complete' %job[1])
+			return True
 		except urllib.error.HTTPError:
 			print('Download of %s failed could not find ftp: '%job[0])
+			return False
+		except:
+			print('Unexpected error, skipping thread')
+			return False
 
 	def download_jobs(self, parallel, jobs):
 		print('Downloading jobs....')
 		pool = Pool(processes=parallel)
 		pool.map(self.download, jobs)
-		print('Download complete')
+		print('Download of %i  genomes complete' %int(len(jobs)/3))
 		return self.check_files(jobs)
 
 	def check_files(self, jobs):
@@ -43,3 +48,10 @@ class downloader:
 			if os.path.isfile(job[1]):
 				self.genomes[job[2]][job[3]][job[4]] = job[1]
 		return self.genomes
+
+	def clean_name(self, string):
+		newstring = string.replace('(','_')
+		newstring = newstring.replace(')','_')
+		newstring = newstring.replace('/','_')
+		newstring = newstring.replace(' ','_')
+		return newstring
