@@ -2,7 +2,7 @@ from datetime import datetime
 class compare_isolates:
 
 	def compare_isolates(self, isolate1, isolate2):
-		reference = ['Complete genome', 'Chromosome', 'Scaffold', 'Contig']
+		reference = ['Complete Genome', 'Chromosome', 'Scaffold', 'Contig']
 		label = 'assembly_level'
 		assembly1 = isolate1[label]
 		assembly2 = isolate2[label]
