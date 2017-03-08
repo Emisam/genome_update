@@ -52,11 +52,3 @@ def calculate_statistics(yaml,file):
 	#write yaml
 	yaml.write(file,Dictonary)
 	print("Done")
-
-##contigs #Average contig length #bases #N50
-#argument
-#file = sys.argv[1]
-#file = "/home/emisam/Genomes/Brucella.yaml"
-#genome_dir = sys.argv[2]
-#genome_dir = "/home/emisam/Genomes/"
-#Open yaml

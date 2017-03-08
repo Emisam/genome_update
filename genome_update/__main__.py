@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import argparse
 import os
+import sys
 
-import genome_update
-from genome_update import isolate_finder as iso
-from genome_update import yaml_handler as yh
-from genome_update import dictonary_handler as dh
-from genome_update import downloader as dw
-from genome_update import sequence_statistics 
+_version = '0.1.6.7'
+import isolate_finder as iso
+import yaml_handler as yh
+import dictonary_handler as dh
+import downloader as dw
+import sequence_statistics 
 def main():
 	SUPPORTED_DOMAINS = ['archaea', 'bacteria', 'fungi', 'invertebrate', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', 'viral']
 	parser = argparse.ArgumentParser()
@@ -56,13 +57,17 @@ def main():
 						dest = 'update', 
 						help = 'Use to only update local yaml file', 
 						action = 'store_true')
-	parser.add_argument('-V', '--version', action ='version', version=genome_update.__version__, help='print version information')
+	parser.add_argument('-V', '--version', action ='version', version= _version, help='print version information')
 
 	args = parser.parse_args()
 
 
 	NCBI = 'ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/' + args.domain + '/assembly_summary.txt'
 	yaml = yh.yaml_handler()
+	
+	if os.path.isfile(args.name) and not args.input:
+		print("Yaml file already exist, either specify a new name with the option -name or remove old file")
+		sys.exit(0) 
 
 	#create directory if it does not exists
 	if not os.path.exists(args.output):
@@ -70,18 +75,18 @@ def main():
 
 	#Check which arguments that were given
 	if args.download and args.update:
-		print('Both --download and --update-yaml cannot be supplied')
+		print('Both --download and --update-yaml cannot be supplied')	
 	elif args.download:
 		if args.input != None and os.path.exists(args.input):
 			download(yaml, args.input, args.name, args.output, args.parallel)
 		else:
 			print('To use --download, specify a correct input with -i')
 	elif args.update:
-		if args.input != None and args.genus and os.path.exists(args.input):
+		if args.input != None and args.genus and os.path.isfile(args.input):
 			print('Checking if input is uptodate with NCBI assembly')
 			update_yaml(yaml, NCBI, args.genus, args.species_taxid, args.taxid, args.name, args.input)
 		else:
-			print('To use --download, specify a correct input with -i')
+			print('To use --update, specify a correct input with -i')
 	elif args.genus:
 		update_yaml(yaml, NCBI, args.genus, args.species_taxid, args.taxid, args.name, args.input)
 		download(yaml, args.name, args.name, args.output, args.parallel)

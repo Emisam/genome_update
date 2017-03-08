@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
-from genome_update import compare_isolates as ci
+import compare_isolates as ci
 
 class isolate_finder:
 
@@ -32,7 +32,6 @@ class isolate_finder:
 				if species_id is not None and species_id != str(self.frame.iat[i, self.labels['species_taxid']]):
 					continue
 				if tax_id is not None and tax_id != str(self.frame.iat[i, self.labels['taxid']]):
-					print('hey from tax')
 					continue 
 				if isolate not in unique:
 					indices.append(i)
