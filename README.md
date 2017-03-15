@@ -11,7 +11,7 @@ These instructions will provide information how to install and use the software.
 
 ### Prerequisites
 
-Python 3.5
+Python
 Pandas
 PyYaml
 

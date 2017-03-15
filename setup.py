@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
 	name='genome_update',
-	version = '0.1.6.7',
+	version = '0.1.6.8',
 	description = 'A script for updating a local directory with genomes, from NCBI assembly files',
 	long_description = long_description,
 	url='https://github.com/Emisam/genome_update.git',
@@ -22,7 +22,7 @@ setup(
 		'Intended Audience :: Science/Research',
 		'Topic :: Scientific/Engineering :: Bio-Informatics',
 		'License :: OSI Approved :: MIT License',
-		'Programming Language :: Python :: 3',
+		'Programming Language :: Python',
 	],
 	packages=find_packages(),
 	install_requires=['pandas', 'PyYAML'],

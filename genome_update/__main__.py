@@ -3,12 +3,12 @@ import argparse
 import os
 import sys
 
-_version = '0.1.6.7'
-import isolate_finder as iso
-import yaml_handler as yh
-import dictonary_handler as dh
-import downloader as dw
-import sequence_statistics 
+import genome_update
+from genome_update import isolate_finder as iso
+from genome_update import yaml_handler as yh
+from genome_update import dictonary_handler as dh
+from genome_update import downloader as dw
+from genome_update import sequence_statistics 
 def main():
 	SUPPORTED_DOMAINS = ['archaea', 'bacteria', 'fungi', 'invertebrate', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', 'viral']
 	parser = argparse.ArgumentParser()
@@ -57,7 +57,7 @@ def main():
 						dest = 'update', 
 						help = 'Use to only update local yaml file', 
 						action = 'store_true')
-	parser.add_argument('-V', '--version', action ='version', version= _version, help='print version information')
+	parser.add_argument('-V', '--version', action ='version', version=genome_update.__version__, help='print version information')
 
 	args = parser.parse_args()
 

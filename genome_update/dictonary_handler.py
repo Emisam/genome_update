@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import compare_isolates as ci
+from genome_update import compare_isolates as ci
 import os.path
 import itertools
 class dictonary:
