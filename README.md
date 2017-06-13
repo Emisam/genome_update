@@ -80,7 +80,3 @@ genome_update -domain <domain> -g <Genus>
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-## Acknowledgments
-
-* Would like to thank kblin for his amazing work with the ncbi_genome_download which provided lots of inspiration when writing genome_update.
